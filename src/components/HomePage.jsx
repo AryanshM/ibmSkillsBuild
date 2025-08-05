@@ -1,53 +1,59 @@
-// src/components/HomePage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function HomePage() {
   return (
-    <div className="home-page">
-      <header>
-        <h1>SereneMind</h1>
-        <p>Welcome to SereneMind. Explore our mental wellness tools.</p>
-        <div className="cta">
-          <a href="#services" className="start-button">
+    <div className="min-h-screen bg-primary text-text-primary font-sans">
+      <div className="container mx-auto px-4 py-16">
+        <header className="min-h-screen flex flex-col justify-center items-center text-center rounded-xl p-8 mb-20 animate -slide-in text-white shadow-xl">
+          <h1 className="text-5xl font-bold text-accent mb-4">SereneMind</h1>
+          <p className="text-2xl text-text-secondary mb-8">
+            Your journey to mental wellness starts here.
+          </p>
+          <a href="#services" className="btn text-lg">
             Explore Services
           </a>
-        </div>
-      </header>
-      <div className='home-page-landing'></div>
+        </header>
 
-      <section id="services" className="services">
-        <h2>Our Services</h2>
-        <div className="service-container">
-          <div className="service-card">
-            <h3>Mental Health Screening</h3>
-            <p>Take a quick self-assessment quiz to understand your mental well-being.</p>
-            <Link to="/quiz" className="start-button">
-              Begin Self-Assessment
-            </Link>
+        <section id="services" className="py-16">
+          <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <ServiceCard
+              title="Mental Health Screening"
+              description="Take a quick self-assessment quiz to understand your mental well-being."
+              link="/quiz"
+              buttonText="Begin Self-Assessment"
+            />
+            <ServiceCard
+              title="Disease Detector"
+              description="Identify potential health risks based on your symptoms and history."
+              link="/disease-detector"
+              buttonText="Explore Disease Detector"
+            />
+            <ServiceCard
+              title="Personalized Health Plan"
+              description="Get a customized health plan tailored to your specific needs and goals."
+              link="/health-planner"
+              buttonText="Discover Your Health Plan"
+            />
           </div>
-
-          <div className="service-card">
-            <h3>Disease Detector</h3>
-            <p>Identify potential health risks based on your symptoms and history.</p>
-            <Link to="/disease-detector" className="start-button">
-              Explore Disease Detector
-            </Link>
-          </div>
-
-          <div className="service-card">
-            <h3>Personalized Health Plan</h3>
-            <p>Get a customized health plan tailored to your specific needs and goals.</p>
-            <Link to="/health-planner" className="start-button">
-              Discover Your Health Plan
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <footer>
+        </section>
+      </div>
+      <footer className="text-center text-text-secondary py-8">
         <p>&copy; 2025 SereneMind</p>
       </footer>
+    </div>
+  );
+}
+
+function ServiceCard({ title, description, link, buttonText }) {
+  return (
+    <div className="bg-secondary rounded-4xl p-8 shadow-card hover:shadow-card-hover transition-shadow duration-300 flex flex-col animate-fade-in">
+      <h3 className="text-2xl font-bold mb-4">{title}</h3>
+      <p className="text-text-secondary mb-6 flex-grow">{description}</p>
+      <Link to={link} className="btn mt-auto text-center">
+        {buttonText}
+      </Link>
     </div>
   );
 }

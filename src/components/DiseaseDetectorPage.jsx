@@ -26,42 +26,43 @@ function DiseaseDetectorPage() {
   };
 
   return (
-    <div className="disease-detector-page">
-      <h1 className="disease-detector-heading">What are your symptoms?</h1>
-      <div className="symptom-input-section">
-        <input
-          type="text"
-          className="symptom-input-box"
-          placeholder="Enter Symptom 1"
-          value={symptomInput}
-          onChange={(e) => setSymptomInput(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              handleAddSymptom();
-            }
-          }}
-        />
-        <button className="add-symptom-button" onClick={handleAddSymptom}>
-          Add Symptom
-        </button>
-      </div>
-
-      <div className="symptoms-display-area">
-        {symptoms.map((symptom, index) => (
-          <div key={index} className="symptom-box">
-            {symptom}
-            <button className="remove-symptom-button" onClick={() => handleRemoveSymptom(index)}>
-              &times;
+    <div className="min-h-screen bg-primary text-text-primary font-sans flex items-center justify-center">
+      <div className="container mx-auto px-4 py-16 text-center animate-fade-in">
+        <h1 className="text-5xl font-bold text-accent mb-12">What are your symptoms?</h1>
+        <div className="max-w-2xl mx-auto">
+          <div className="flex gap-4 mb-8">
+            <input
+              type="text"
+              className="flex-grow bg-secondary text-text-primary placeholder-text-secondary px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+              placeholder="Enter a symptom"
+              value={symptomInput}
+              onChange={(e) => setSymptomInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleAddSymptom()}
+            />
+            <button className="btn" onClick={handleAddSymptom}>
+              Add
             </button>
           </div>
-        ))}
-      </div>
-        <br />
-        <br />
 
-      <button className="detect-disease-button" onClick={handleDetectDisease}>
-        Detect Disease
-      </button>
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {symptoms.map((symptom, index) => (
+              <div key={index} className="bg-secondary text-text-primary px-5 py-3 rounded-full flex items-center gap-3 shadow-card">
+                {symptom}
+                <button
+                  className="text-text-secondary hover:text-red-500 transition-colors duration-200"
+                  onClick={() => handleRemoveSymptom(index)}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <button className="btn text-xl w-full" onClick={handleDetectDisease}>
+            Detect Disease
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

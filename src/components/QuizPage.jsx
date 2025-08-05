@@ -1,4 +1,3 @@
-// src/components/QuizPage.jsx
 import React, { useState } from 'react';
 import { questions } from '../questions';
 import Quiz from './Quiz';
@@ -31,23 +30,25 @@ function QuizPage() {
   const maxScore = questions.length * 3;
 
   return (
-    <div className="quiz-page">
-      {showResults ? (
-        <Results
-          score={totalScore}
-          totalScore={maxScore}
-          onRestart={handleRestart}
-          questions={questions}
-          answers={answers}
-        />
-      ) : (
-        <Quiz
-          question={questions[currentQuestionIndex]}
-          onAnswerClick={handleAnswerOptionClick}
-          questionNumber={currentQuestionIndex + 1}
-          totalQuestions={questions.length}
-        />
-      )}
+    <div className="min-h-screen bg-primary text-text-primary font-sans flex items-center justify-center">
+      <div className="container mx-auto px-4 py-16 text-center animate-fade-in">
+        {showResults ? (
+          <Results
+            score={totalScore}
+            totalScore={maxScore}
+            onRestart={handleRestart}
+            questions={questions}
+            answers={answers}
+          />
+        ) : (
+          <Quiz
+            question={questions[currentQuestionIndex]}
+            onAnswerClick={handleAnswerOptionClick}
+            questionNumber={currentQuestionIndex + 1}
+            totalQuestions={questions.length}
+          />
+        )}
+      </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ function HealthPlannerQuestionsPage() {
   const [answers, setAnswers] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [finalLoading, setFinalLoading] = useState(false); // ⬅️ New loading state
+  const [finalLoading, setFinalLoading] = useState(false);
 
   useEffect(() => {
     if (!objective) {
@@ -45,65 +45,65 @@ function HealthPlannerQuestionsPage() {
       if (currentIndex < questions.length - 1) {
         setCurrentIndex((prev) => prev + 1);
       } else {
-        handleGeneratePlan(); // Last question answered
+        handleGeneratePlan();
       }
     }, 400);
   };
 
   const handleGeneratePlan = async () => {
-    setFinalLoading(true); // Start loading screen
+    setFinalLoading(true);
     try {
       const plan = await generateHealthPlan(objective, questions, answers);
       navigate("/planner-results", { state: { plan, objective } });
     } catch (err) {
-      alert("Something went wrong while generating the plan.");
+      alert("Something went wrong while generating the plan. Please try again.");
       console.error(err);
-    } finally {
       setFinalLoading(false);
     }
   };
 
   const currentQuestion = questions[currentIndex];
 
-  // Show loading screen while plan is being generated
-  if (finalLoading) {
+  if (loading || finalLoading) {
     return (
-      <div className="follow-up-questions-page">
-        <h1 className="follow-up-heading">Generating Your Personalized Plan...</h1>
-        <p className="loading-message">Please wait a moment.</p>
+      <div className="min-h-screen bg-primary text-text-primary font-sans flex flex-col items-center justify-center">
+        <div className="spinner w-16 h-16 border-4 border-t-accent border-secondary rounded-full animate-spin"></div>
+        <p className="mt-4 text-lg text-text-secondary">
+          {loading ? `Generating questions for: ${objective}` : "Generating your personalized plan..."}
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="follow-up-questions-page">
-      <h1 className="follow-up-heading">Health Planning Questions</h1>
-      {loading ? (
-        <p className="loading-message">Generating questions for: {objective}</p>
-      ) : currentQuestion ? (
-        <div className="question-card">
-          <h2 className="question-text">{`${currentIndex + 1}. ${currentQuestion.question}`}</h2>
-          <div className="options-list">
-            {currentQuestion.options.map((opt, idx) => (
-              <button
-                key={idx}
-                className={`option-button ${
-                  answers[currentIndex] === opt ? "selected" : ""
-                }`}
-                onClick={() => handleOptionSelect(opt)}
-              >
-                {opt}
-              </button>
-            ))}
+    <div className="min-h-screen bg-primary text-text-primary font-sans flex items-center justify-center">
+      <div className="container mx-auto px-4 py-16 text-center animate-fade-in">
+        <h1 className="text-5xl font-bold text-accent mb-12">Health Planning Questions</h1>
+        {currentQuestion ? (
+          <div className="bg-secondary p-12 rounded-4xl shadow-card max-w-3xl mx-auto animate-slide-in">
+            <h2 className="text-3xl font-bold mb-8">{`${currentIndex + 1}. ${currentQuestion.question}`}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {currentQuestion.options.map((opt, idx) => (
+                <button
+                  key={idx}
+                  className={`btn text-lg w-full ${answers[currentIndex] === opt ? "bg-opacity-80" : ""}`}
+                  onClick={() => handleOptionSelect(opt)}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      ) : (
-        <p>Failed to load questions.</p>
-      )}
-
-      <button className="back-button" onClick={() => navigate("/health-planner")}>
-        Back
-      </button>
+        ) : (
+          <p className="text-lg text-red-500">Failed to load questions. Please try again.</p>
+        )}
+        <button
+          className="btn mt-12"
+          onClick={() => navigate("/health-planner")}
+        >
+          Back
+        </button>
+      </div>
     </div>
   );
 }

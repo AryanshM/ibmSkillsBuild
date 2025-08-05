@@ -1,7 +1,5 @@
-// src/components/Results.js
-
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate and Link
+import { useNavigate, Link } from 'react-router-dom';
 import analyzeResponses from '../llm/screening';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -11,40 +9,40 @@ const Results = ({ questions: propQuestions, answers: propAnswers }) => {
     title: 'Response Analysis',
     diagnosis: '',
     text: 'Loading analysis...',
-    treatment_required: 'no' // Initialize treatment_required
+    treatment_required: 'no'
   });
 
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const questions = useMemo(() => propQuestions, [propQuestions]);
   const answers = useMemo(() => propAnswers, [propAnswers]);
 
   const formatResponse = useCallback((questions, answers) => {
-    const formattedResponses = questions.map((question, index) => {
-      const answerText = question.answerOptions.find((answer, i) => i === answers[index])?.answerText || 'Not answered';
+    return questions.map((question, index) => {
+      const answerOption = question.answerOptions.find((_, i) => i === answers[index]);
+      const answerText = answerOption ? answerOption.answerText : 'Not answered';
       return `Question: ${question.questionText}\nAnswer: ${answerText}`;
     }).join('\n\n');
-    return formattedResponses;
   }, []);
 
   const getInterpretation = async () => {
     setLoading(true);
     try {
-      const responseAnalysis = await analyzeResponses(formatResponse(questions, answers));
-      console.log(responseAnalysis);
+      const formattedResponses = formatResponse(questions, answers);
+      const responseAnalysis = await analyzeResponses(formattedResponses);
       setInterpretation({
         title: 'Response Analysis',
-        diagnosis: responseAnalysis.diagnosis,
-        text: responseAnalysis.recommendation,
-        treatment_required: responseAnalysis.treatment_required || 'no' // Default to 'no' if not present
+        diagnosis: responseAnalysis.diagnosis || 'N/A',
+        text: responseAnalysis.recommendation || 'No specific recommendations provided.',
+        treatment_required: responseAnalysis.treatment_required || 'no'
       });
     } catch (error) {
       console.error("Error getting interpretation:", error);
       setInterpretation({
         title: 'Response Analysis',
         diagnosis: 'Error',
-        text: 'Failed to load analysis.',
+        text: 'Failed to load analysis. Please try again later.',
         treatment_required: 'no'
       });
     } finally {
@@ -53,49 +51,60 @@ const Results = ({ questions: propQuestions, answers: propAnswers }) => {
   };
 
   useEffect(() => {
-    getInterpretation();
+    if (questions && answers && questions.length > 0 && answers.length > 0) {
+      getInterpretation();
+    } else {
+      setLoading(false);
+      setInterpretation({
+        title: 'Response Analysis',
+        diagnosis: 'No Data',
+        text: 'No quiz data available to analyze.',
+        treatment_required: 'no'
+      });
+    }
   }, [questions, answers, formatResponse]);
 
   const handleVisitDoctor = () => {
-    // Implement the logic to redirect or navigate to a doctor's appointment booking page
-    window.location.href = "https://www.example.com/book-appointment"; // Replace with your actual URL
+    window.open("https://www.example.com/find-doctor", "_blank");
   };
 
   return (
-    <div className="results-card">
-      <div className="results-grid-container">
-        <div className="left-side">
-          <Link to="/" className="restart-button">
+    <div className="bg-secondary p-12 rounded-4xl shadow-card max-w-4xl mx-auto animate-fade-in">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="text-left">
+          <Link to="/" className="btn mb-8">
             Go Home
           </Link>
-          <div className="resources">
-            <h4>Please find help here (India):</h4>
-            <ul>
-              <li><a href="https://vandrevalafoundation.com/" target="_blank" rel="noopener noreferrer">Vandrevala Foundation:</a> 24x7 Helpline</li>
-              <li><a href="https://www.icallhelpline.org/" target="_blank" rel="noopener noreferrer">iCALL Psychosocial Helpline:</a> Available Mon-Sat</li>
-              <li><a href="https://www.thelivelovelaughfoundation.org/helpline" target="_blank" rel="noopener noreferrer">The Live Love Laugh Foundation:</a> Resources & Helplines</li>
+          <div className="mt-8">
+            <h4 className="text-xl font-semibold text-text-secondary mb-4">Helpful Resources:</h4>
+            <ul className="space-y-2">
+              <li><a href="https://vandrevalafoundation.com/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Vandrevala Foundation</a></li>
+              <li><a href="https://www.icallhelpline.org/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">iCALL Psychosocial Helpline</a></li>
+              <li><a href="https://www.thelivelovelaughfoundation.org/helpline" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">The Live Love Laugh Foundation</a></li>
             </ul>
           </div>
-          
         </div>
-        <div className="right-side">
-          <div className="results-interpretation">
-            <h3>{interpretation.title}</h3>
-            <h4>Diagnosis:</h4>
+        <div className="text-left">
+          <div className="bg-primary p-8 rounded-2xl shadow-inner">
+            <h3 className="text-3xl font-bold text-accent mb-4">{interpretation.title}</h3>
+            <h4 className="text-xl font-semibold mb-3">Diagnosis:</h4>
             {loading ? (
-              <Skeleton count={3} />
+              <Skeleton count={3} baseColor="#2c2c2e" highlightColor="#1c1c1e" height={20} />
             ) : (
-              <p>{interpretation.diagnosis}</p>
+              <p className="text-lg text-text-secondary mb-5">{interpretation.diagnosis}</p>
             )}
-            <h4>Recommendation:</h4>
+            <h4 className="text-xl font-semibold mb-3">Recommendation:</h4>
             {loading ? (
-              <Skeleton count={5} />
+              <Skeleton count={5} baseColor="#2c2c2e" highlightColor="#1c1c1e" height={18} />
             ) : (
-              <p>{interpretation.text}</p>
+              <p className="text-lg text-text-secondary">{interpretation.text}</p>
             )}
           </div>
           {interpretation.treatment_required === 'yes' && (
-            <button className="visit-doctor-button" onClick={handleVisitDoctor}>
+            <button
+              className="btn mt-8 w-full text-lg"
+              onClick={handleVisitDoctor}
+            >
               Visit Doctor
             </button>
           )}
@@ -106,8 +115,3 @@ const Results = ({ questions: propQuestions, answers: propAnswers }) => {
 };
 
 export default Results;
-
-
-
-
-
