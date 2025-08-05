@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 function HomePage() {
   return (
     <div className="min-h-screen bg-primary text-text-primary font-sans">
+      <div className="fixed bottom-4 right-4 bg-secondary text-text-primary p-4 rounded-lg shadow-lg">
+        ilk
+      </div>
       <div className="container mx-auto px-4 py-16">
         <header className="min-h-screen flex flex-col justify-center items-center text-center rounded-xl p-8 mb-20 animate -slide-in text-white shadow-xl">
           <h1 className="text-5xl font-bold text-accent mb-4">SereneMind</h1>
