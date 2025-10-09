@@ -13,6 +13,7 @@
     "@langchain/google-genai": "^0.2.16",
     "dotenv": "^17.2.1",
     "langchain": "^0.3.30",
+    "lucide-react": "^0.545.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.5.0",

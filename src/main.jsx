@@ -10,6 +10,7 @@ import DiseasePredictionPage from './components/DiseasePredictionPage.jsx';
 import HealthPlannerPage from './components/HealthPlannerPage.jsx'; // ✅ NEW
 import PlannerQuestionsPage from './components/PlannerQuestionsPage.jsx'; // ✅ NEW
 import PlannerResultsPage from './components/HealthPlanPage.jsx'; // ✅ NEW
+import EnvironmentPage from './components/EnvironmentPage';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
         path: 'planner-results', // ✅ Final health plan
         element: <PlannerResultsPage />,
       },
+      {
+        path: 'environment', // ✅ Final health plan
+        element: <EnvironmentPage/>,
+      }
+
     ],
   },
 ]);
