@@ -1,19 +1,95 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply scroll-smooth;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-primary text-text-primary font-sans;
+    background: linear-gradient(135deg, #F9F7F4 0%, #F5F1ED 100%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-accent font-bold text-text-primary;
+  }
+
+  h1 {
+    @apply text-5xl leading-tight;
+  }
+
+  h2 {
+    @apply text-4xl leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  p {
+    @apply text-lg text-text-secondary leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors duration-300;
   }
 }
 
 @layer components {
   .btn {
-    @apply bg-accent text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-opacity-80 transition-all duration-300;
+    @apply bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-semibold py-3 px-6 rounded-xl shadow-soft hover:shadow-card-hover transition-all duration-300 cursor-pointer;
+  }
+
+  .btn:hover {
+    @apply -translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-alt text-text-primary font-semibold py-3 px-6 rounded-xl shadow-soft hover:shadow-card-hover transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply border-2 border-accent-primary text-accent-primary bg-transparent font-semibold py-2 px-6 rounded-xl hover:bg-accent-primary/5 transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 p-6;
+  }
+
+  .card-lg {
+    @apply bg-white rounded-3xl shadow-card hover:shadow-card-hover transition-all duration-300 p-8;
+  }
+
+  .section-title {
+    @apply text-4xl font-accent font-bold text-text-primary mb-6;
+  }
+
+  .wellness-gradient {
+    @apply bg-gradient-wellness;
+  }
+
+  .disclaimer {
+    @apply bg-secondary-alt/30 border border-accent-primary/20 text-text-secondary p-6 rounded-xl my-8 text-sm leading-relaxed;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/20 backdrop-blur-sm;
+  }
+
+  .modal-content {
+    @apply bg-white rounded-3xl shadow-2xl p-10;
+  }
+
+  .wellness-icon {
+    @apply w-12 h-12 text-accent-primary;
   }
 }
