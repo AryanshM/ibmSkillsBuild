@@ -7,10 +7,12 @@ import QuizPage from './components/QuizPage.jsx';
 import DiseaseDetectorPage from './components/DiseaseDetectorPage.jsx';
 import FollowUpQuestionsPage from './components/FollowUpQuestionsPage.jsx';
 import DiseasePredictionPage from './components/DiseasePredictionPage.jsx';
-import HealthPlannerPage from './components/HealthPlannerPage.jsx'; // ✅ NEW
-import PlannerQuestionsPage from './components/PlannerQuestionsPage.jsx'; // ✅ NEW
-import PlannerResultsPage from './components/HealthPlanPage.jsx'; // ✅ NEW
+import HealthPlannerPage from './components/HealthPlannerPage.jsx';
+import PlannerQuestionsPage from './components/PlannerQuestionsPage.jsx';
+import PlannerResultsPage from './components/HealthPlanPage.jsx';
 import EnvironmentPage from './components/EnvironmentPage';
+import ExercisesPage from './components/ExercisesPage.jsx';
+import ExerciseListPage from './components/ExerciseListPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -46,12 +48,20 @@ const router = createBrowserRouter([
         element: <PlannerQuestionsPage />,
       },
       {
-        path: 'planner-results', // ✅ Final health plan
+        path: 'planner-results',
         element: <PlannerResultsPage />,
       },
       {
-        path: 'environment', // ✅ Final health plan
+        path: 'environment',
         element: <EnvironmentPage/>,
+      },
+      {
+        path: 'exercises',
+        element: <ExercisesPage />,
+      },
+      {
+        path: 'exercises/:difficulty',
+        element: <ExerciseListPage />,
       }
 
     ],

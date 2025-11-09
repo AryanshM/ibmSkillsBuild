@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserCircle, Heart, Brain, Leaf, Wind, BarChart3 } from "lucide-react";
+import { UserCircle, Heart, Brain, Leaf, Wind, BarChart3, Dumbbell } from "lucide-react";
 import DailyRitual from "./DailyRitual";
 import WellnessAssistant from "./WellnessAssistant";
 
@@ -103,7 +103,7 @@ function HomePage() {
       <section id="modules" className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="section-title text-center mb-16">Our Core Modules</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             <ServiceCard
               icon={Heart}
               title="Health"
@@ -135,6 +135,14 @@ function HomePage() {
               link="/environment"
               buttonText="Explore"
               color="bg-accent-secondary"
+            />
+            <ServiceCard
+              icon={Dumbbell}
+              title="Exercises"
+              description="Curated workout routines for beginner, intermediate, and advanced levels."
+              link="/exercises"
+              buttonText="Explore"
+              color="bg-accent-primary"
             />
           </div>
         </div>
