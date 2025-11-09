@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { generatePlannerQuestions } from "../llm/generatePlannerQuestions";
 import { generateHealthPlan } from "../llm/generateHealthPlan";
+import { ArrowRight, AlertCircle } from "lucide-react";
 
 function HealthPlannerQuestionsPage() {
   const location = useLocation();
@@ -62,47 +63,140 @@ function HealthPlannerQuestionsPage() {
     }
   };
 
-  const currentQuestion = questions[currentIndex];
-
-  if (loading || finalLoading) {
+  if (loading) {
     return (
-      <div className="min-h-screen bg-primary text-text-primary font-sans flex flex-col items-center justify-center">
-        <div className="spinner w-16 h-16 border-4 border-t-accent border-secondary rounded-full animate-spin"></div>
-        <p className="mt-4 text-lg text-text-secondary">
-          {loading ? `Generating questions for: ${objective}` : "Generating your personalized plan..."}
-        </p>
+      <div className="min-h-screen bg-primary flex items-center justify-center">
+        <div className="text-center animate-pulse">
+          <div className="inline-block mb-6">
+            <div className="w-16 h-16 border-4 border-accent-primary border-t-accent-secondary rounded-full animate-spin"></div>
+          </div>
+          <h1 className="text-4xl font-accent font-bold text-text-primary mb-2">
+            Generating Questions
+          </h1>
+          <p className="text-text-secondary">Creating a personalized questionnaire for: <strong>{objective}</strong></p>
+        </div>
       </div>
     );
   }
 
+  if (finalLoading) {
+    return (
+      <div className="min-h-screen bg-primary flex items-center justify-center">
+        <div className="text-center animate-pulse">
+          <div className="inline-block mb-6">
+            <div className="w-16 h-16 border-4 border-accent-primary border-t-accent-secondary rounded-full animate-spin"></div>
+          </div>
+          <h1 className="text-4xl font-accent font-bold text-text-primary mb-2">
+            Creating Your Plan
+          </h1>
+          <p className="text-text-secondary">Our AI is preparing your personalized lifestyle plan...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const currentQuestion = questions[currentIndex];
+  const progressPercent = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0;
+
   return (
-    <div className="min-h-screen bg-primary text-text-primary font-sans flex items-center justify-center">
-      <div className="container mx-auto px-4 py-16 text-center animate-fade-in">
-        <h1 className="text-5xl font-bold text-accent mb-12">Health Planning Questions</h1>
-        {currentQuestion ? (
-          <div className="bg-secondary p-12 rounded-4xl shadow-card max-w-3xl mx-auto animate-slide-in">
-            <h2 className="text-3xl font-bold mb-8">{`${currentIndex + 1}. ${currentQuestion.question}`}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {currentQuestion.options.map((opt, idx) => (
-                <button
-                  key={idx}
-                  className={`btn text-lg w-full ${answers[currentIndex] === opt ? "bg-opacity-80" : ""}`}
-                  onClick={() => handleOptionSelect(opt)}
-                >
-                  {opt}
-                </button>
-              ))}
+    <div className="min-h-screen bg-primary text-text-primary font-sans py-16">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto">
+          {/* Goal Display */}
+          <div className="mb-8 p-4 bg-accent-primary/10 rounded-lg border border-accent-primary/20">
+            <p className="text-sm text-text-secondary">Goal</p>
+            <p className="text-xl font-bold text-accent-primary">{objective}</p>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mb-12">
+            <div className="flex justify-between items-center mb-3">
+              <p className="text-sm font-semibold text-text-secondary">
+                Question {currentIndex + 1} of {questions.length}
+              </p>
+              <p className="text-sm font-semibold text-accent-primary">
+                {Math.round(progressPercent)}%
+              </p>
+            </div>
+            <div className="w-full bg-secondary-alt/30 rounded-full h-2 overflow-hidden">
+              <div
+                className="bg-gradient-to-r from-accent-primary to-accent-secondary h-full rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${progressPercent}%` }}
+              ></div>
             </div>
           </div>
-        ) : (
-          <p className="text-lg text-red-500">Failed to load questions. Please try again.</p>
-        )}
-        <button
-          className="btn mt-12"
-          onClick={() => navigate("/health-planner")}
-        >
-          Back
-        </button>
+
+          {/* Question Card */}
+          {currentQuestion ? (
+            <div className="card-lg border-2 border-accent-primary/20 animate-fade-in">
+              <h2 className="text-3xl font-accent font-bold text-text-primary mb-8 leading-tight">
+                {currentQuestion.question}
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {currentQuestion.options.map((opt, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleOptionSelect(opt)}
+                    className={`p-6 rounded-xl font-semibold transition-all duration-300 text-center border-2 ${
+                      answers[currentIndex] === opt
+                        ? 'bg-gradient-sage text-white border-accent-primary shadow-card'
+                        : 'bg-secondary-alt/30 text-text-primary border-accent-primary/20 hover:border-accent-primary/50 hover:shadow-soft'
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+
+              {answers[currentIndex] && (
+                <div className="mt-8 pt-8 border-t border-accent-primary/20">
+                  <button
+                    onClick={() => {
+                      if (currentIndex < questions.length - 1) {
+                        setCurrentIndex((prev) => prev + 1);
+                      } else {
+                        handleGeneratePlan();
+                      }
+                    }}
+                    className="btn w-full flex items-center justify-center gap-2 text-lg"
+                  >
+                    {currentIndex === questions.length - 1 ? 'Generate My Plan' : 'Next Question'}
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="card-lg border-2 border-danger/30 bg-danger/5">
+              <div className="flex items-start gap-4">
+                <AlertCircle className="w-6 h-6 text-danger flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-2xl font-bold text-danger mb-2">Unable to Load Questions</h3>
+                  <p className="text-text-secondary mb-6">
+                    We couldn't generate personalized questions for your goal. Please try again.
+                  </p>
+                  <button
+                    className="btn"
+                    onClick={() => navigate("/health-planner")}
+                  >
+                    Go Back
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation */}
+          <div className="mt-12 flex gap-4">
+            <button
+              className="btn-outline flex-1"
+              onClick={() => navigate("/health-planner")}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
