@@ -134,7 +134,7 @@ function FollowUpQuestionsPage() {
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {currentQuestion.options.map((option, idx) => (
+                {currentQuestion && currentQuestion.options && currentQuestion.options.map((option, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleOptionSelect(option)}
