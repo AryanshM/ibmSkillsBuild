@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserCircle, Heart, Brain, Leaf, Wind, BarChart3, Dumbbell } from "lucide-react";
+import { UserCircle, Heart, Brain, Leaf, Wind, BarChart3, Dumbbell, Apple as Food } from "lucide-react";
 import DailyRitual from "./DailyRitual";
 import WellnessAssistant from "./WellnessAssistant";
 
@@ -141,6 +141,14 @@ function HomePage() {
               title="Exercises"
               description="Curated workout routines for beginner, intermediate, and advanced levels."
               link="/exercises"
+              buttonText="Explore"
+              color="bg-accent-primary"
+            />
+            <ServiceCard
+              icon={Food}
+              title="Know Your Food"
+              description="Get all details about the food you eat."
+              link="/knowyourfood"
               buttonText="Explore"
               color="bg-accent-primary"
             />

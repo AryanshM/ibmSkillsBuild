@@ -11,6 +11,7 @@
   "dependencies": {
     "@langchain/core": "^0.3.66",
     "@langchain/google-genai": "^0.2.16",
+    "@supabase-js/source": "github:supabase/supabase-js",
     "@supabase/supabase-js": "^2.80.0",
     "dotenv": "^17.2.1",
     "langchain": "^0.3.30",

@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Dumbbell, Clock, CheckCircle, ArrowLeft, AlertCircle } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 function ExerciseListPage() {
   const { difficulty } = useParams();
@@ -24,27 +19,23 @@ function ExerciseListPage() {
       setLoading(true);
       setError(null);
 
-      const { data: category, error: categoryError } = await supabase
-        .from('exercise_categories')
-        .select('id, name, description')
-        .eq('name', difficulty)
-        .maybeSingle();
+      const response = await fetch('/data/exercises.json');
+      if (!response.ok) throw new Error('Failed to fetch exercises data.');
 
-      if (categoryError) throw categoryError;
+      const json = await response.json();
 
+      // Find matching category
+      const category = json.categories.find((c) => c.name === difficulty);
       if (!category) {
         setError('Category not found');
         setLoading(false);
         return;
       }
 
-      const { data: exercisesData, error: exercisesError } = await supabase
-        .from('exercises')
-        .select('*')
-        .eq('category_id', category.id)
-        .order('created_at', { ascending: true });
-
-      if (exercisesError) throw exercisesError;
+      // Filter exercises for that category
+      const exercisesData = json.exercises.filter(
+        (ex) => ex.category_id === category.id
+      );
 
       setExercises(exercisesData || []);
     } catch (err) {

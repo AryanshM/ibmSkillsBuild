@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
+import { generateWellnessReply } from '../llm/assistant'; // ✅ Import Gemini LLM function
 
 const wellnessMessages = [
   "How can I support your wellness journey today?",
@@ -23,6 +24,7 @@ function WellnessAssistant() {
     },
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -33,7 +35,8 @@ function WellnessAssistant() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = () => {
+  // ✅ AI-enabled message sending
+  const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
 
     const userMessage = {
@@ -43,30 +46,36 @@ function WellnessAssistant() {
       timestamp: new Date(),
     };
 
-    setMessages([...messages, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
+    setLoading(true);
 
-    setTimeout(() => {
-      const responses = [
-        "That's great! Self-care is important. Keep prioritizing your wellness.",
-        "I appreciate you sharing that with me. How can I help?",
-        "Wellness is a journey, not a destination. You're doing great!",
-        "Would you like to explore more about this topic in our modules?",
-        "Remember, small consistent steps lead to big changes.",
-        "Your commitment to wellness is admirable. Keep going!",
-        "That sounds important. Take care of yourself.",
-        "I'm here to support you on your wellness journey.",
-      ];
+    try {
+      // 🌿 Get AI-generated reply using Gemini
+      const aiReply = await generateWellnessReply(inputValue);
 
       const assistantMessage = {
         id: messages.length + 2,
-        text: responses[Math.floor(Math.random() * responses.length)],
+        text: aiReply,
         sender: 'assistant',
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-    }, 800);
+    } catch (error) {
+      console.error("AI reply error:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: messages.length + 2,
+          text: "I'm having a little trouble responding right now. Try again soon. 🌿",
+          sender: 'assistant',
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -87,11 +96,14 @@ function WellnessAssistant() {
             </button>
           </div>
 
+          {/* Chat Body */}
           <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-primary/50">
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex ${
+                  message.sender === 'user' ? 'justify-end' : 'justify-start'
+                }`}
               >
                 <div
                   className={`max-w-xs rounded-xl px-4 py-2 ${
@@ -104,20 +116,29 @@ function WellnessAssistant() {
                 </div>
               </div>
             ))}
+            {loading && (
+              <div className="flex justify-start">
+                <div className="bg-white border border-accent-primary/20 text-text-secondary rounded-xl px-4 py-2 text-sm italic">
+                  Typing...
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Input */}
           <div className="border-t border-accent-primary/10 p-4 flex gap-2">
             <input
               type="text"
               placeholder="Share your wellness thoughts..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
               className="flex-1 bg-white border border-accent-primary/20 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent-secondary"
             />
             <button
               onClick={handleSendMessage}
+              disabled={loading}
               className="bg-accent-secondary text-white p-2 rounded-lg hover:bg-accent-secondary/80 transition"
               aria-label="Send"
             >
@@ -127,6 +148,7 @@ function WellnessAssistant() {
         </div>
       )}
 
+      {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 bg-gradient-sage text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50 animate-float"

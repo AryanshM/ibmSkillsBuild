@@ -1,0 +1,301 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "beginner",
+      "description": "Simple and low-impact exercises for those starting their fitness journey."
+    },
+    {
+      "id": 2,
+      "name": "intermediate",
+      "description": "Moderate-intensity exercises for building endurance, strength, and balance."
+    },
+    {
+      "id": 3,
+      "name": "hard",
+      "description": "High-intensity, advanced workouts designed for experienced individuals."
+    }
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "title": "Bodyweight Squats",
+      "description": "A great lower-body movement that strengthens your legs and glutes.",
+      "duration_minutes": 8,
+      "instructions": [
+        "Stand with feet shoulder-width apart.",
+        "Bend your knees and push your hips back as if sitting on a chair.",
+        "Keep your chest up and your knees behind your toes.",
+        "Push through your heels to return to standing position."
+      ],
+      "benefits": ["Improves leg strength", "Enhances mobility", "Builds core stability"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 2,
+      "category_id": 1,
+      "title": "Knee Push-Ups",
+      "description": "A gentler version of the classic push-up, perfect for building upper body strength.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Start in a plank position on your knees.",
+        "Keep your hands under your shoulders and your core tight.",
+        "Lower your chest toward the floor, then push back up."
+      ],
+      "benefits": ["Builds chest and arm strength", "Improves shoulder stability"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 3,
+      "category_id": 1,
+      "title": "Glute Bridge",
+      "description": "A simple yet powerful move to activate your glutes and hamstrings.",
+      "duration_minutes": 6,
+      "instructions": [
+        "Lie on your back with knees bent and feet flat on the floor.",
+        "Lift your hips by pressing through your heels.",
+        "Squeeze your glutes at the top, then slowly lower down."
+      ],
+      "benefits": ["Strengthens glutes and hamstrings", "Improves posture", "Reduces lower back tension"],
+      "equipment_needed": ["Yoga mat"]
+    },
+    {
+      "id": 4,
+      "category_id": 1,
+      "title": "Plank Hold",
+      "description": "An excellent core stabilization exercise for beginners.",
+      "duration_minutes": 4,
+      "instructions": [
+        "Place your forearms on the floor and extend your legs back.",
+        "Keep your body in a straight line from head to heels.",
+        "Engage your core and hold the position for 20–30 seconds."
+      ],
+      "benefits": ["Strengthens core muscles", "Improves posture", "Enhances endurance"],
+      "equipment_needed": ["Mat"]
+    },
+    {
+      "id": 5,
+      "category_id": 1,
+      "title": "Wall Sit",
+      "description": "A static exercise that strengthens your lower body without movement.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Stand with your back against a wall.",
+        "Slide down until your thighs are parallel to the ground.",
+        "Hold the position for 30–45 seconds."
+      ],
+      "benefits": ["Improves lower body endurance", "Strengthens quadriceps"],
+      "equipment_needed": ["Wall"]
+    },
+    {
+      "id": 6,
+      "category_id": 2,
+      "title": "Standard Push-Ups",
+      "description": "A bodyweight move targeting the chest, shoulders, and triceps.",
+      "duration_minutes": 6,
+      "instructions": [
+        "Start in a high plank position with hands under shoulders.",
+        "Lower your chest until it's just above the floor.",
+        "Push back up to the starting position."
+      ],
+      "benefits": ["Increases upper body strength", "Enhances shoulder stability"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 7,
+      "category_id": 2,
+      "title": "Lunges",
+      "description": "A dynamic lower-body exercise that works the legs and core.",
+      "duration_minutes": 7,
+      "instructions": [
+        "Stand upright and step one leg forward.",
+        "Lower your body until both knees are bent at 90 degrees.",
+        "Push back up and switch legs."
+      ],
+      "benefits": ["Strengthens quads and glutes", "Improves balance and coordination"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 8,
+      "category_id": 2,
+      "title": "Mountain Climbers",
+      "description": "A fast-paced move that improves cardiovascular endurance and core strength.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Start in a plank position.",
+        "Alternate driving your knees toward your chest in a running motion.",
+        "Maintain a steady pace for 30–60 seconds."
+      ],
+      "benefits": ["Increases heart rate", "Engages full body", "Improves stamina"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 9,
+      "category_id": 2,
+      "title": "Jump Squats",
+      "description": "An explosive version of squats that adds intensity and power.",
+      "duration_minutes": 6,
+      "instructions": [
+        "Perform a regular squat, then jump explosively upward.",
+        "Land softly and immediately go into the next rep."
+      ],
+      "benefits": ["Improves leg strength", "Boosts explosive power"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 10,
+      "category_id": 2,
+      "title": "Tricep Dips",
+      "description": "A great exercise to tone and strengthen your arms using your bodyweight.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Sit on the edge of a sturdy surface (chair or bench).",
+        "Place hands beside your hips and slide forward.",
+        "Lower your body until your elbows are at 90°, then push up."
+      ],
+      "benefits": ["Tones arms", "Builds tricep strength"],
+      "equipment_needed": ["Chair", "Bench"]
+    },
+    {
+      "id": 11,
+      "category_id": 2,
+      "title": "Side Plank",
+      "description": "Targets obliques and improves balance and core strength.",
+      "duration_minutes": 4,
+      "instructions": [
+        "Lie on one side, supporting your body with one forearm.",
+        "Lift your hips so your body forms a straight line.",
+        "Hold for 20–40 seconds, then switch sides."
+      ],
+      "benefits": ["Strengthens obliques", "Improves posture", "Enhances stability"],
+      "equipment_needed": ["Mat"]
+    },
+    {
+      "id": 12,
+      "category_id": 3,
+      "title": "Burpees",
+      "description": "A high-intensity full-body exercise for strength and endurance.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Start standing, then drop into a squat position.",
+        "Place hands on the floor and kick your feet back into a push-up position.",
+        "Perform a push-up, jump your feet back, then explode upward."
+      ],
+      "benefits": ["Boosts cardio fitness", "Works full body", "Burns calories fast"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 13,
+      "category_id": 3,
+      "title": "Pull-Ups",
+      "description": "An upper-body powerhouse move targeting your back and arms.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Hang from a pull-up bar with an overhand grip.",
+        "Pull yourself up until your chin clears the bar.",
+        "Lower slowly and repeat."
+      ],
+      "benefits": ["Builds back and bicep strength", "Improves grip power"],
+      "equipment_needed": ["Pull-up bar"]
+    },
+    {
+      "id": 14,
+      "category_id": 3,
+      "title": "Pistol Squats",
+      "description": "A challenging single-leg squat for strength and balance.",
+      "duration_minutes": 6,
+      "instructions": [
+        "Stand on one leg and extend the other forward.",
+        "Slowly lower into a squat while keeping balance.",
+        "Push through your heel to stand up."
+      ],
+      "benefits": ["Builds unilateral strength", "Improves coordination", "Increases flexibility"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 15,
+      "category_id": 3,
+      "title": "Handstand Hold",
+      "description": "An advanced move to develop shoulder and core control.",
+      "duration_minutes": 4,
+      "instructions": [
+        "Kick up into a handstand against a wall.",
+        "Engage your core and keep your body straight.",
+        "Hold for 15–30 seconds."
+      ],
+      "benefits": ["Strengthens shoulders and arms", "Improves balance"],
+      "equipment_needed": ["Wall"]
+    },
+    {
+      "id": 16,
+      "category_id": 3,
+      "title": "Box Jumps",
+      "description": "An explosive plyometric move for building leg power.",
+      "duration_minutes": 6,
+      "instructions": [
+        "Stand facing a sturdy box or platform.",
+        "Jump onto it using both feet, landing softly.",
+        "Step back down and repeat."
+      ],
+      "benefits": ["Boosts power and speed", "Engages core and lower body"],
+      "equipment_needed": ["Box", "Platform"]
+    },
+    {
+      "id": 17,
+      "category_id": 3,
+      "title": "Plank to Push-Up",
+      "description": "Combines core stability and upper body strength in one fluid movement.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Start in a forearm plank position.",
+        "Push up onto your hands one at a time into a high plank.",
+        "Lower back down to forearms, alternating lead arm."
+      ],
+      "benefits": ["Improves endurance", "Works arms, chest, and core"],
+      "equipment_needed": ["Mat"]
+    },
+    {
+      "id": 18,
+      "category_id": 3,
+      "title": "Jump Lunges",
+      "description": "A power-based variation of lunges to boost intensity.",
+      "duration_minutes": 6,
+      "instructions": [
+        "Start in a lunge position.",
+        "Jump explosively, switching legs mid-air.",
+        "Land softly and repeat for 10–15 reps per side."
+      ],
+      "benefits": ["Enhances lower-body strength", "Improves balance and explosiveness"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 19,
+      "category_id": 3,
+      "title": "Spiderman Push-Ups",
+      "description": "An advanced push-up variation that engages your core and obliques.",
+      "duration_minutes": 5,
+      "instructions": [
+        "Start in a push-up position.",
+        "As you lower, bring your right knee toward your right elbow.",
+        "Return and switch sides with each rep."
+      ],
+      "benefits": ["Strengthens core and arms", "Improves mobility"],
+      "equipment_needed": ["None"]
+    },
+    {
+      "id": 20,
+      "category_id": 3,
+      "title": "Plank Jacks",
+      "description": "A dynamic plank variation for cardio and core engagement.",
+      "duration_minutes": 4,
+      "instructions": [
+        "Start in a plank position.",
+        "Jump your feet out wide, then back together (like a jumping jack).",
+        "Keep your hips level throughout."
+      ],
+      "benefits": ["Boosts heart rate", "Tones core muscles"],
+      "equipment_needed": ["Mat"]
+    }
+  ]
+}
