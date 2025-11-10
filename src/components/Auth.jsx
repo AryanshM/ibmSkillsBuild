@@ -36,7 +36,7 @@ function Auth() {
   const handleSignUp = async () => {
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) alert(error.message);
-    else alert('Check your email for confirmation link!');
+    else alert('Check your Email for confirmation link!');
   };
 
   const handleSignIn = async () => {
